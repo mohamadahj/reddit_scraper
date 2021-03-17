@@ -10,10 +10,11 @@ from nltk.stem.wordnet import WordNetLemmatizer
 from nltk.stem.porter import PorterStemmer
 from nltk.sentiment.vader import SentimentIntensityAnalyzer as SIA
 
+from wordcloud import WordCloud, STOPWORDS
 import matplotlib.pyplot as plt
 
-emacs_df = pd.read_csv(r"emacs_result.csv")
-vim_df = pd.read_csv(r"vim_result.csv")
+emacs_df = pd.read_csv(r"emacs_scrape_result.csv")
+vim_df = pd.read_csv(r"vim_scrape_result.csv")
 
 
 def remove_html(text):
@@ -64,6 +65,25 @@ print("Emacs frequent words are:", emacs_fdist.most_common(10))
 emacs_fdist.plot(30,cumulative=False, title="Emacs words in selftext")
 plt.show()
 
+#Word Cloud for emacs
+
+wordcloud_stopwords = set(STOPWORDS)
+wordcloud_stopwords.update(["or", "org", "https"])
+wordcloud = WordCloud(width=800, height=800,
+                      background_color='white',
+                      stopwords=wordcloud_stopwords,
+                      min_font_size=10).generate(emacs_text)
+
+# plot the WordCloud image
+plt.figure(figsize=(8, 8), facecolor=None)
+plt.imshow(wordcloud)
+plt.axis("off")
+plt.title("Word Cloud of vim")
+plt.tight_layout(pad=0)
+
+plt.show()
+
+
 #Check positive, negative, or neural for a each text
 sia = SIA()
 results = []
@@ -106,6 +126,22 @@ print("Vim frequent words are:", vim_fdist.most_common(10))
 plt.figure()
 vim_fdist.plot(30,cumulative=False, title="Vim words in selftext")
 plt.show()
+
+#Word Cloud for vim
+wordcloud = WordCloud(width=800, height=800,
+                      background_color='white',
+                      stopwords=wordcloud_stopwords,
+                      min_font_size=10).generate(vim_text)
+
+# plot the WordCloud image
+plt.figure(figsize=(8, 8), facecolor=None)
+plt.imshow(wordcloud)
+plt.axis("off")
+plt.title("Word Cloud of vim")
+plt.tight_layout(pad=0)
+
+plt.show()
+
 
 #Check positive, negative, or neural for a each text
 sia = SIA()
