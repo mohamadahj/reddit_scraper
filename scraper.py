@@ -35,10 +35,10 @@ vim_df = vim_df.assign(datetime=timestamp2)
 
 #Export into a csv file
 emacs_df.to_csv('emacs_result.csv', sep=',', header=True, index=False, columns=[
-    'id', 'author', 'datetime', 'domain', 'url', 'title',
-    'score', 'selftext', 'num_comments', 'link_flair_text'
+    'id', 'author', 'datetime', 'domain',
+    'score', 'num_comments', 'title', 'selftext'
 ])
 vim_df.to_csv('vim_result.csv', sep=',', header=True, index=False, columns=[
-    'id', 'author', 'datetime', 'domain', 'url', 'title',
-    'score', 'selftext', 'num_comments', 'link_flair_text'
+    'id', 'author', 'datetime', 'domain',
+    'score', 'num_comments', 'title', 'selftext'
 ])
