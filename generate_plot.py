@@ -23,8 +23,8 @@ def my_survey(data):
 
 
 ##############################################################################
-emacs= pd.read_csv('emacs_result.csv')
-vim= pd.read_csv('vim_result.csv')
+emacs= pd.read_csv('emacs_scrape_result.csv')
+vim= pd.read_csv('vim_scrape_result.csv')
 
 temp= [pd.to_datetime(emacs['datetime'][i]).date() for i in range(len(emacs))]
 emacs['just_date'] = pd.DataFrame(temp)
@@ -71,7 +71,7 @@ result = pd.concat([group1, group2], axis=1)
 plt.plot(result.index, result['emacs'], label = 'emacs')
 plt.plot(result.index, result['vim'], label = 'vim')
 plt.title('compare number of ID per date')
-plt.legend();
+plt.legend()
 
 
 ##############################################################################
@@ -86,8 +86,7 @@ result = pd.concat([group1, group2], axis=1)
 plt.plot(result.index, result['emacs'], label = 'emacs')
 plt.plot(result.index, result['vim'], label = 'vim')
 plt.title('compare number of ID per month')
-plt.legend();
-
+plt.legend()
 
 ##############################################################################
 plt.figure()
@@ -103,7 +102,7 @@ for ind in result.index:
 plt.plot(result.index, result['emacs_author'], label = 'emacs')
 plt.plot(result.index, result['vim_author'], label = 'vim')
 plt.title('compare number of ID per month')
-plt.legend();
+plt.legend()
 
 
 ##############################################################################
@@ -172,7 +171,7 @@ for ind in result.index:
 plt.plot(result.index, result['emacs_comment'], label = 'emacs')
 plt.plot(result.index, result['vim_comment'], label = 'vim')
 plt.title('compare number of comments per date')
-plt.legend();
+plt.legend()
 
 
 ##############################################################################
@@ -206,8 +205,22 @@ for patch, color in zip(bplot['boxes'], colors):
 	patch.set_facecolor(color)
 plt.show()
 
+##############################################################################
+plt.figure()
 
+temp1= emacs.groupby(['domain']).count()[['id']]
+temp2= vim.groupby(['domain']).count()[['id']]
+t1= np.sort(np.array(temp1['id']))[::-1]
+t2= np.sort(np.array(temp2['id']))[::-1]
 
+result_new= np.zeros([np.max([len(temp1),len(temp2)]),2])
+result_new[:len(t1),0]= t1
+result_new[:len(t2),1]= t2
+result_new= pd.DataFrame(result_new, columns=['emacs','vim'])
 
-
-
+plt.plot(result_new.index, result_new['emacs'], label = 'emacs')
+plt.plot(result_new.index, result_new['vim'], label = 'vim')
+plt.title('compare number of domain (log scale)')
+plt.yscale('log')
+plt.legend()
+plt.show()
