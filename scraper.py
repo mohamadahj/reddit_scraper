@@ -5,8 +5,10 @@ import pandas as pd
 #Create an instance of PushshiftAPI
 api = PushshiftAPI()
 #Time period: 01/01/2020-31/03/2020
-start_epoch = int(dt.datetime(2020, 1, 1).timestamp())
-end_epoch = int(dt.datetime(2020, 4, 1).timestamp())
+s_time = dt.datetime(2020, 1, 1)
+start_epoch = int(s_time.replace().timestamp())
+e_time = dt.datetime(2020, 4, 1)
+end_epoch = int(e_time.replace().timestamp())
 query = api.search_submissions(subreddit='emacs', after=start_epoch, before=end_epoch)
 #Put the query on a list
 emacs_submissions = list()
@@ -26,17 +28,17 @@ def get_date(submission):
     return dt.datetime.fromtimestamp(time)
 
 
-timestamp = emacs_df["created"].apply(get_date)
-emacs_df = emacs_df.assign(timestamp=timestamp)
-timestamp2 = vim_df["created"].apply(get_date)
-vim_df = vim_df.assign(timestamp=timestamp)
+timestamp = emacs_df["created_utc"].apply(get_date)
+emacs_df = emacs_df.assign(datetime=timestamp)
+timestamp2 = vim_df["created_utc"].apply(get_date)
+vim_df = vim_df.assign(datetime=timestamp2)
 
 #Export into a csv file
 emacs_df.to_csv('emacs_result.csv', sep=',', header=True, index=False, columns=[
-    'id', 'author', 'timestamp', 'domain', 'url', 'title',
-    'score', 'selftext', 'num_comments', 'num_crossposts'
+    'id', 'author', 'datetime', 'domain', 'url', 'title',
+    'score', 'selftext', 'num_comments', 'link_flair_text'
 ])
 vim_df.to_csv('vim_result.csv', sep=',', header=True, index=False, columns=[
-    'id', 'author', 'timestamp', 'domain', 'url', 'title',
-    'score', 'selftext', 'num_comments', 'num_crossposts'
+    'id', 'author', 'datetime', 'domain', 'url', 'title',
+    'score', 'selftext', 'num_comments', 'link_flair_text'
 ])
