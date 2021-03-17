@@ -172,7 +172,7 @@ plt.plot(result.index, result['emacs_comment'], label = 'emacs')
 plt.plot(result.index, result['vim_comment'], label = 'vim')
 plt.title('compare number of comments per date')
 plt.legend()
-
+plt.show()
 
 ##############################################################################
 plt.figure()
