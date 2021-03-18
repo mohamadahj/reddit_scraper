@@ -13,8 +13,12 @@ I consider 5 metrics to analyze the behavior of contributors on [reddit](reddit.
 4. Domain
 5. Author  
 
-In the generate_plot.py, I generate plots to understand the differences in the distribution of the 5 metrics across the two subreddits. I use [matplotlib](https://matplotlib.org/) for generating plots.
+In the generate_plot.py, I generate plots to understand the differences in the distribution of the 5 metrics across the two subreddits. I use [matplotlib](https://matplotlib.org/) for generating plots. Here's the code to install matplotlib:  
+```pip install matplotlib ```  
 Then in additional_analysis.py, I do simple text mining to provide a better understanding of differences in contributor behavior. To do this, I use [nltk](www.nltk.org
-) package. (For the first time, you need to run this code after importing nltk: ``` nltk.download() ``` )  
+) package. First we need to install this package:   
+ ```pip install nltk ```    
 In this code, I tokenize the selftext of each subreddits, remove unwanted words, Lemmatization and Stemming. Wordcloud for each of subreddits texts is generated as well.  
+I have also used [bs4](https://pypi.org/project/beautifulsoup4/) package to have a html free text, to install this package, we need the following code:  
+ ```pip install bs4 ```  
 I also do sentiment analysis for labeling each of the texts (labels are: positive, negative, and neural). I generate csv files for both subreddits containing the label of posts.
