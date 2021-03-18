@@ -13,9 +13,13 @@ from nltk.sentiment.vader import SentimentIntensityAnalyzer as SIA
 from wordcloud import WordCloud, STOPWORDS
 import matplotlib.pyplot as plt
 
+nltk.download('stopwords')
+nltk.download('punkt')
+nltk.download('wordnet')
+nltk.download('vader_lexicon')
+
 emacs_df = pd.read_csv(r"emacs_scrape_result.csv")
 vim_df = pd.read_csv(r"vim_scrape_result.csv")
-
 
 def remove_html(text):
     soup = BeautifulSoup(text, features="html.parser")
