@@ -32,12 +32,13 @@ timestamp = emacs_df["created_utc"].apply(get_date)
 emacs_df = emacs_df.assign(datetime=timestamp)
 timestamp2 = vim_df["created_utc"].apply(get_date)
 vim_df = vim_df.assign(datetime=timestamp2)
-
+ptint("Exporting emacs data to emacs_scrape_result.csv")
 #Export into a csv file
 emacs_df.to_csv('emacs_scrape_result.csv', sep=',', header=True, index=False, columns=[
     'id', 'author', 'datetime', 'domain',
     'score', 'num_comments', 'title', 'selftext'
 ])
+ptint("Exporting vim data to vim_scrape_result.csv")
 vim_df.to_csv('vim_scrape_result.csv', sep=',', header=True, index=False, columns=[
     'id', 'author', 'datetime', 'domain',
     'score', 'num_comments', 'title', 'selftext'
